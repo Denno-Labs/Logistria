@@ -1,0 +1,113 @@
+message_id,user_query,analysis,risk_level,confidence_score,timestamp
+25ab5600-87e3-4caa-b4ea-c0fa10715068,What is the current warehouse utilization?,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:30:52.254889
+e26adbd5-42a4-4dd5-bdc9-30ad41376ee5,Give me a summary of all alerts,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:31:22.106394
+611a7445-5cfb-496d-826b-b3797cabceb7,What is the current warehouse utilization?,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:37:31.776308
+3c38de9c-f255-4cda-87d0-fdde5505976e,hello,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:39:43.409075
+e2d3a93b-0533-4922-a0d5-c656a2bd66c7,What is the current warehouse utilization?,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:46:45.733382
+6d4117f9-1847-4548-bdd5-a64114f06938,What is the current warehouse utilization?,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:49:29.999232
+24ab1759-ecc5-43f1-9dc0-424267d84422,hello,"Error communicating with AI: 400 API key not valid. Please pass a valid API key. [reason: ""API_KEY_INVALID""
+domain: ""googleapis.com""
+metadata {
+  key: ""service""
+  value: ""generativelanguage.googleapis.com""
+}
+, locale: ""en-US""
+message: ""API key not valid. Please pass a valid API key.""
+]",UNKNOWN,0.0,2026-02-22T05:54:08.312172
+fe3be83f-dc99-4f4a-b179-f770484b09d5,Hi,"Error communicating with AI: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+Please retry in 51.269450727s. [links {
+  description: ""Learn more about Gemini API quotas""
+  url: ""https://ai.google.dev/gemini-api/docs/rate-limits""
+}
+, violations {
+  quota_metric: ""generativelanguage.googleapis.com/generate_content_free_tier_requests""
+  quota_id: ""GenerateRequestsPerDayPerProjectPerModel-FreeTier""
+  quota_dimensions {
+    key: ""model""
+    value: ""gemini-2.0-flash""
+  }
+  quota_dimensions {
+    key: ""location""
+    value: ""global""
+  }
+}
+violations {
+  quota_metric: ""generativelanguage.googleapis.com/generate_content_free_tier_requests""
+  quota_id: ""GenerateRequestsPerMinutePerProjectPerModel-FreeTier""
+  quota_dimensions {
+    key: ""model""
+    value: ""gemini-2.0-flash""
+  }
+  quota_dimensions {
+    key: ""location""
+    value: ""global""
+  }
+}
+violations {
+  quota_metric: ""generativelanguage.googleapis.com/generate_content_free_tier_input_token_count""
+  quota_id: ""GenerateContentInputTokensPerModelPerMinute-FreeTier""
+  quota_dimensions {
+    key: ""model""
+    value: ""gemini-2.0-flash""
+  }
+  quota_dimensions {
+    key: ""location""
+    value: ""global""
+  }
+}
+, retry_delay {
+  seconds: 51
+}
+]",UNKNOWN,0.0,2026-02-22T08:51:08.717732
+0a6fbf69-678b-4438-b342-b8df1e7154f1,Is there any risks,"LOGISTRIA is currently facing significant supply chain risks primarily centered around critical raw materials C003 and C004. Material C003 is at a critically low inventory level of 5 units, which is well below its safety stock of 20 units. This immediate shortage directly impacts ongoing production orders, specifically 'har2' and 'pp2', which have pending purchase orders for C003 that have not yet been approved. Furthermore, there are multiple pending purchase orders for C004, including 'PO-BC230321' which is explicitly flagged as 'High Risk' and is crucial for the 'har2' production. The delay in approving these pending POs, combined with the low stock for C003, creates a bottleneck that could halt production and impact subsequent shipments.",CRITICAL,0.95,2026-02-22T09:06:52.360789
