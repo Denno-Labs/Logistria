@@ -21,7 +21,7 @@ the final structured delivery plan:
 import logging
 import os
 import csv
-import google.generativeai as genai
+from google import genai
 
 from agents.logistics import cluster_manager
 from agents.logistics import distance_engine
@@ -43,8 +43,8 @@ class AutonomousOrchestratorAgent:
 
     def __init__(self, api_key: str = "", model_name: str = "gemini-2.5-flash", db_path: str = "data_base"):
         _key = api_key or os.environ.get("GEMINI_API_KEY", "") or "AIzaSyCRUmzBqn9WUn8YxlOc5hmN7_JCotCHq_w"
-        genai.configure(api_key=_key)
-        self.model   = genai.GenerativeModel(model_name)
+        self.client = genai.Client(api_key=_key)
+        self.model_name = model_name
         self.db_path = db_path
         self.log_path = os.path.join(db_path, "logistics_log.csv")
         self.logistics_logger = LogisticsLogger(self.log_path)
@@ -91,7 +91,12 @@ class AutonomousOrchestratorAgent:
         logger.info(f"[Orchestrator] ✔ Step 3 — ML scores attached. Top: {scored_candidates[0]['vehicle_id']} (score={scored_candidates[0]['priority_score_ml']})")
 
         # ── Step 4: LLM vehicle selection ─────────────────────────────────────
-        decision = logistics_reasoning_llm.select_vehicle(cluster, scored_candidates, self.model)
+        decision = logistics_reasoning_llm.select_vehicle(
+            cluster,
+            scored_candidates,
+            self.client,
+            self.model_name,
+        )
         selected_vehicle_id = decision["selected_vehicle_id"]
         reasoning           = decision.get("reasoning", [])
         logger.info(f"[Orchestrator] ✔ Step 4 — LLM selected: {selected_vehicle_id}")

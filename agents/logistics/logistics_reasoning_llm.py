@@ -7,7 +7,6 @@ Returns selected_vehicle_id + reasoning list.
 
 import json
 import logging
-import google.generativeai as genai
 
 logger = logging.getLogger(__name__)
 
@@ -33,13 +32,14 @@ Return exactly this structure:
 """
 
 
-def select_vehicle(cluster: dict, candidates_with_scores: list, model) -> dict:
+def select_vehicle(cluster: dict, candidates_with_scores: list, client, model_name: str) -> dict:
     """
     Parameters
     ----------
     cluster               : output from cluster_manager.create_cluster()
     candidates_with_scores: output from ml_fetch_service.attach_scores()
-    model                 : a google.generativeai.GenerativeModel instance
+    client                : a google.genai.Client instance
+    model_name            : model name to use for generation
 
     Returns
     -------
@@ -68,7 +68,10 @@ Select the best vehicle. Return ONLY valid JSON.
 
     logger.info(f"[LogisticsReasoningLLM] Sending prompt to Gemini for cluster={cluster['cluster_id']}")
 
-    response = model.generate_content(prompt)
+    response = client.models.generate_content(
+        model=model_name,
+        contents=prompt
+    )
 
     raw = response.text.strip()
     # Strip markdown code fences if present

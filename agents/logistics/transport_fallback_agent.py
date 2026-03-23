@@ -117,7 +117,8 @@ def report_incident(
     vehicle_id: str,
     incident_type: str,
     description: str,
-    model,
+    client,
+    model_name: str,
     db_path: str = "data_base",
 ) -> dict:
     """
@@ -129,7 +130,8 @@ def report_incident(
     vehicle_id    : vehicle reporting the incident
     incident_type : see INCIDENT TYPES above
     description   : free-text description from driver
-    model         : google.generativeai.GenerativeModel instance
+    client        : google.genai.Client instance
+    model_name    : model name for LLM generation
     db_path       : CSV directory
 
     Returns
@@ -170,7 +172,10 @@ Provide a structured recovery plan. Return ONLY valid JSON.
 """
 
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt
+        )
         raw = response.text.strip()
         if raw.startswith("```"):
             raw = raw.split("```")[1]

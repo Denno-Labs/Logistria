@@ -2,15 +2,23 @@ import { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { MotiView } from 'moti';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/firebaseConfig';
 
 export default function SplashScreen() {
   const router = useRouter();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      // Bypass authentication entirely
-      router.replace('/(tabs)');
-    }, 2000); // Shorter splash screen
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          router.replace('/(tabs)');
+        } else {
+          router.replace('/login');
+        }
+        unsubscribe();
+      });
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 

@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import json
 import logging
-import google.generativeai as genai
+from google import genai
 logger = logging.getLogger("ERP.Production")
 
 
@@ -35,10 +35,11 @@ class ProductionExecutionAgent:
 
         # Gemini model for QC failure suggestions
         if api_key:
-            genai.configure(api_key=api_key)
-            self.qc_model = genai.GenerativeModel("gemini-2.0-flash")
+            self.qc_client = genai.Client(api_key=api_key)
+            self.qc_model_name = "gemini-2.0-flash"
         else:
-            self.qc_model = None
+            self.qc_client = None
+            self.qc_model_name = None
 
         self._initialize_files()
 
@@ -355,7 +356,7 @@ class ProductionExecutionAgent:
                 # LLM Recovery Suggestions (Gemini)
                 # -----------------------------------------
                 llm_suggestions = ""
-                if self.qc_model:
+                if self.qc_client and self.qc_model_name:
                     try:
                         product_id = prod_row.iloc[0]["product_id"]
                         prompt = f"""You are a manufacturing quality control expert.
@@ -380,7 +381,10 @@ Provide your response as JSON with this structure:
 }}
 
 Return ONLY valid JSON."""
-                        response = self.qc_model.generate_content(prompt)
+                        response = self.qc_client.models.generate_content(
+                            model=self.qc_model_name,
+                            contents=prompt
+                        )
                         llm_suggestions = response.text
                         # Try to parse to validate it's JSON
                         try:

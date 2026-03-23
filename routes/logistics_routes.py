@@ -156,7 +156,8 @@ def report_incident():
             vehicle_id=body["vehicle_id"],
             incident_type=body["incident_type"].upper(),
             description=body["description"],
-            model=agent.model,
+            client=agent.client,
+            model_name=agent.model_name,
         )
         return jsonify(result), 200
     except Exception as e:

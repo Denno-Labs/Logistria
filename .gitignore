@@ -1,0 +1,73 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# =========================
+# Node / React Native / Expo
+# =========================
+node_modules/
+*.tsbuildinfo
+.expo/
+web-build/
+
+# Keep frontend local artifacts out of root tracking too
+logistria-frontend/node_modules/
+logistria-frontend/.expo/
+logistria-frontend/web-build/
+logistria-frontend/dist/
+logistria-frontend/expo-env.d.ts
+
+# =========================
+# Environment / secrets
+# =========================
+.env
+.env.*
+*.pem
+*.key
+*.p8
+*.p12
+*.jks
+*.mobileprovision
+
+# =========================
+# OS / editor
+# =========================
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# =========================
+# Logs / temp
+# =========================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

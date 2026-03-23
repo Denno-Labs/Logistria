@@ -15,7 +15,7 @@ from datetime import datetime
 from typing import Dict, Any, List
 
 import pandas as pd
-import google.generativeai as genai
+from google import genai
 
 # ── paths ────────────────────────────────────────────
 BASE = os.path.join(os.path.dirname(__file__), "..", "data_base")
@@ -78,8 +78,8 @@ class CentralOrchestrator:
     """
 
     def __init__(self, api_key: str, model_name: str = "gemini-2.5-flash"):
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel(model_name)
+        self.client = genai.Client(api_key=api_key)
+        self.model_name = model_name
         self._ensure_log()
 
     # ── state aggregation ─────────────────────────────
@@ -219,7 +219,10 @@ Analyze the state and answer the user's question. Return ONLY valid JSON."""
             last_err = None
             for attempt in range(3):
                 try:
-                    response = self.model.generate_content(prompt)
+                    response = self.client.models.generate_content(
+                        model=self.model_name,
+                        contents=prompt
+                    )
                     raw = response.text.strip()
                     break
                 except Exception as retry_err:

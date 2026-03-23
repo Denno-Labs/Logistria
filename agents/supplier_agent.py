@@ -299,9 +299,13 @@ class SupplierRankingAgent:
     
     def evaluate_model(self, X_test, y_test):
         from sklearn.metrics import r2_score
-        y_pred = self.model.predict(X_test)
-        print("R2:", r2_score(y_test, y_pred))
-        return y_pred
+        performance_pred = self.performance_model.predict(X_test)
+        risk_pred = self.risk_model.predict(X_test)
+        print("Performance R2:", r2_score(y_test, performance_pred))
+        return {
+            "performance_predictions": performance_pred,
+            "risk_predictions": risk_pred,
+        }
 
 
     # --------------------------------------------------

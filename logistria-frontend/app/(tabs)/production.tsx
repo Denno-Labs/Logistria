@@ -174,9 +174,9 @@ function CreateOrderForm({ onCreated }: { onCreated: () => void }) {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    finished_product_id: productId,
+                    product_id: productId,
                     order_id: orderId,
-                    quantity: Number(qty),
+                    target_quantity: Number(qty),
                 }),
             });
             const data = await res.json();
@@ -267,7 +267,10 @@ export default function ProductionScreen() {
             const res = await fetch(`${API}/production/${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ production_id: order.production_id }),
+                body: JSON.stringify({
+                    production_id: order.production_id,
+                    quantity_completed: Number(order.target_quantity ?? 0),
+                }),
             });
             const data = await res.json();
             if (data.status === 'SUCCESS' || data.production_id) {
@@ -288,7 +291,11 @@ export default function ProductionScreen() {
             const res = await fetch(`${API}/production/quality-check`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ production_id: order.production_id }),
+                body: JSON.stringify({
+                    production_id: order.production_id,
+                    quantity_completed: Number(order.target_quantity ?? 0),
+                    qc_passed: true,
+                }),
             });
             const data = await res.json();
             const status = data.qc_status ?? data.status ?? 'UNKNOWN';

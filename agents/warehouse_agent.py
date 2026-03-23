@@ -24,7 +24,7 @@ from datetime import datetime
 from typing import Dict, Any, List, Optional
 
 import pandas as pd
-import google.generativeai as genai
+from google import genai
 
 # ──────────────────────────────────────────────────────
 # Logging
@@ -365,8 +365,8 @@ class GeminiReasoningEngine:
 
     def __init__(self, api_key: str = "", model_name: str = "gemini-3-flash-preview"):
         _key = api_key or os.environ.get("GEMINI_API_KEY", "") or "AIzaSyCRUmzBqn9WUn8YxlOc5hmN7_JCotCHq_w"
-        genai.configure(api_key=_key)
-        self.model = genai.GenerativeModel(model_name)
+        self.client = genai.Client(api_key=_key)
+        self.model_name = model_name
 
     def reason(
         self,
@@ -419,7 +419,10 @@ Analyze and produce your decision. Return ONLY valid JSON.
 """
 
         logger.info("Calling Gemini for warehouse reasoning [%s]…", action_type)
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model_name,
+            contents=prompt
+        )
 
         # Parse JSON from response
         raw_text = response.text.strip()

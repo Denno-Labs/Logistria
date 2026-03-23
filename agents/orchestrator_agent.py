@@ -1,12 +1,12 @@
 import json
 from typing import Dict, Any
-import google.generativeai as genai
+from google import genai
 from execution.orchestration_logger import OrchestrationLogger
 
 class AutonomousOrchestratorAgent:
     def __init__(self, api_key: str, model_name: str = "gemini-3-flash-preview"):
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel(model_name)
+        self.client = genai.Client(api_key=api_key)
+        self.model_name = model_name
         self.logger = OrchestrationLogger("data_base/orchestration_log.csv")
 
 
@@ -52,7 +52,10 @@ Return ONLY valid JSON in this format:
   Return ONLY valid JSON.
   """
 
-      response = self.model.generate_content(prompt)
+      response = self.client.models.generate_content(
+          model=self.model_name,
+          contents=prompt
+      )
 
       try:
           decision = json.loads(response.text)
